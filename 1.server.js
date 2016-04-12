@@ -11,9 +11,12 @@
 var http = require('http');
 
 //每当有请求到来的时候就会执行监听的函数
-
+// request 代表客户端的请求对象
+// response 代表服务器端的响应对象
 var server = http.createServer(function(request,response){
-    console.log('a');
+    response.write('hello');//向客户端写入响应内容
+    response.write('world');
+    response.end();//end表示响应已经完成，可以结束了
 });
 
 //可以监听客户端的请求，启动服务器
