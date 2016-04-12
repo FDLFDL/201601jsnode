@@ -6,7 +6,32 @@
     <link rel="stylesheet" href="/index.css">
 </head>
 <body>
-hello
+<h1>时钟</h1>
+<div id="clock"></div>
 </body>
-<script src="/index.js"></script>
+<script>
+window.onload = function(){
+    setInterval(function(){
+        /**
+         * 0 对象已建立，但是尚未初始化（尚未调用open方法）
+         * 1 (初始化) 对象已建立，尚未调用send方法
+         * 2 (发送数据)send方法已调用，但是当前的状态及http头未知
+         * 3 (数据传送中) 已接收部分数据
+         * 4 (完成) 数据接收完毕
+         */
+        //先创建一个ajax对象，负责向服务器端发请求
+        var xhr = new XMLHttpRequest();
+        //打开，指定请求的方法和URL
+        xhr.open('GET','/clock',true);
+        //指定当你接收到请求之后如何处理
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                document.querySelector('#clock').innerHTML = xhr.responseText;
+            }
+        }
+        //发服务器端发送请求
+        xhr.send();
+    },1000);
+}
+</script>
 </html>
